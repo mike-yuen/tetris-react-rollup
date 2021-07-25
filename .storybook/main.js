@@ -1,11 +1,14 @@
 const path = require('path');
 
 module.exports = {
-    "stories": [
+    stories: [
         "../src/**/*.stories.mdx",
         "../src/**/*.stories.@(js|jsx|ts|tsx)"
     ],
-    "addons": [
+    core: {
+        builder: "webpack5",
+    },
+    addons: [
         "@storybook/addon-essentials",
         "@storybook/addon-storysource"
     ],
@@ -14,28 +17,14 @@ module.exports = {
             ...(config.resolve || {}),
             extensions: ['.ts', '.tsx', '.js'],
             alias: {
-                "common": path.resolve(__dirname, '../src', 'common'),
-                "components": path.resolve(__dirname, '../src', 'components'),
-                "hooks": path.resolve(__dirname, '../src', 'hooks'),
-                "utils": path.resolve(__dirname, '../src', 'utils'),
+                "@": path.resolve(__dirname, '../src')
             },
         }
 
         config.module.rules.push({
             test: /\.scss$/,
-            use: [
-                'style-loader',
-                {
-                    loader: 'css-loader',
-                    options: {
-                        modules: {
-                            localIdentName: '[local]-[hash:base64:5]'
-                        },
-                    },
-                },
-                'sass-loader'
-            ],
-            include: path.resolve(__dirname, '../'),
+            use: ['style-loader', 'css-loader', { loader: 'sass-loader' }],
+            include: path.resolve(__dirname, '../src'),
         });
 
         // Return the altered config

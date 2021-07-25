@@ -18,25 +18,28 @@ export default {
   ],
   output: {
     dir: "dist",
-    format: "esm",
+    format: "cjs", // should be cjs for es5 export than esm
     preserveModules: true,
     preserveModulesRoot: "src",
     sourcemap: true,
   },
   plugins: [
-    resolve(),
+    postcss(),
+    resolve({
+      jsnext: true,
+      browser: true
+    }),
     commonjs(),
     typescript({
       tsconfig: "./tsconfig.build.json",
       declaration: true,
       declarationDir: "dist",
     }),
-    postcss(),
     terser(),
     visualizer({
       filename: "bundle-analysis.html",
       open: true,
     }),
   ],
-  external: ["react", "react-dom", "styled-components"],
+  external: ["react", "react-dom", "sass-loader"],
 };
