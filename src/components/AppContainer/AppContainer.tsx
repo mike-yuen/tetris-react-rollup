@@ -1,11 +1,11 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode } from "react";
 // import { CodefeeTheme, ITheme } from 'common/Theme';
 // import { createGlobalStyle } from 'styled-components';
-import './AppContainer.css';
+import "./AppContainer.css";
 
 export interface AppContainerProps {
   children?: ReactNode;
-//   appTheme?: ITheme;
+  //   appTheme?: ITheme;
 }
 
 // const GlobalStyle = createGlobalStyle<AppContainerProps>`
@@ -18,18 +18,18 @@ export interface AppContainerProps {
 
 const AppContainer: FC<AppContainerProps> = ({
   children,
-//   appTheme,
-}: AppContainerProps) => (
+}: //   appTheme,
+AppContainerProps) => (
   <>
     {/* <GlobalStyle appTheme={appTheme} /> */}
     {children}
   </>
 );
 
-AppContainer.displayName = 'AppContainer';
+AppContainer.displayName = "AppContainer";
 AppContainer.defaultProps = {
   children: undefined,
-//   appTheme: CodefeeTheme,
+  //   appTheme: CodefeeTheme,
 };
 
 export default AppContainer;
