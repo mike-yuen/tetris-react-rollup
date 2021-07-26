@@ -22,6 +22,8 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "quotes": 0,
+    "@typescript-eslint/quotes": 0,
     "react/jsx-props-no-spreading": 0,
     "react/jsx-max-props-per-line": [
       2,
