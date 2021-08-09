@@ -7,7 +7,7 @@ export default create({
 
   // UI
   appBg: 'white',
-  appContentBg: '#fafafa',
+  appContentBg: '#edeae9',
   appBorderRadius: 4,
 
   // Typography
@@ -22,6 +22,6 @@ export default create({
   barSelectedColor: '#fff350',
   barBg: '#00838f',
 
-  brandTitle: 'Codefee-Kit Storybook',
-  brandUrl: 'https://github.com/DriLLFreAK100/codefee-kit',
+  brandTitle: 'Tetris Rollup Storybook',
+  brandUrl: 'https://github.com/mike-yuen/tetris-react-rollup',
 });

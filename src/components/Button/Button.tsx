@@ -34,14 +34,20 @@ const Button: FC<ButtonProps> = ({
   size = 32,
   theme = "light",
   type,
-  onClick,
+  onMouseDown,
+  onMouseUp,
+  onTouchStart,
+  onTouchEnd,
 }) => {
   const iconColor = theme === "light" ? "#3d76b5" : "#edeae9";
   return (
     <button
       className={`tr-button tr-button--${theme}`}
       style={{ width: `${size}px`, height: `${size}px` }}
-      onClick={() => onClick}
+      onMouseDown={() => onMouseDown}
+      onMouseUp={() => onMouseUp}
+      onTouchStart={() => onTouchStart}
+      onTouchEnd={() => onTouchEnd}
     >
       <div className="children">
         <Icon type={type} color={iconColor} />
