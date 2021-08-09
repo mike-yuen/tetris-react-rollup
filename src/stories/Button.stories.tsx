@@ -3,7 +3,6 @@ import { ButtonProps } from "@/components/Button/Button.types";
 import React from "react";
 import { Meta, Story } from "@storybook/react/types-6-0";
 import "@/components/Button/Button.scss"
-/* eslint-disable no-alert */
 
 export default {
   title: "Controls/Button",
