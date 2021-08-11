@@ -1,0 +1,54 @@
+@import "../../assets/global.scss";
+
+.tr-tile {
+  float: left;
+  display: block;
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  margin: 4px;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 5px;
+    height: 5px;
+    background-color: #d6d9df;
+    border-radius: 100%;
+  }
+
+  &--filled {
+    &::before {
+      content: none;
+    }
+
+    &.tr-tile--blue {
+      background-color: color(blue);
+    }
+
+    &.tr-tile--cyan {
+      background-color: color(cyan);
+    }
+
+    &.tr-tile--green {
+      background-color: color(green);
+    }
+
+    &.tr-tile--purple {
+      background-color: color(purple);
+    }
+
+    &.tr-tile--red {
+      background-color: color(red);
+    }
+
+    &.tr-tile--yellow {
+      background-color: color(yellow);
+    }
+  }
+}

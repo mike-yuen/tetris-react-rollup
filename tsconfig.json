@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "commonjs",
     "target": "es5",
     "lib": ["es6", "dom"],
-    "sourceMap": true,
+    "sourceMap": false,
     "jsx": "react",
     "moduleResolution": "node",
     "rootDir": "src",
@@ -11,10 +11,13 @@
     "noImplicitThis": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
+    "strict": true,
     "esModuleInterop": true,
-    "baseUrl": "src/",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": "src",
     "paths": {
-      "*": ["@/*"]
+      "@/*": ["*"],
     }
   },
   "exclude": [

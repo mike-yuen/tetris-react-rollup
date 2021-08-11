@@ -1,0 +1,35 @@
+.tr-keyboard {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  button {
+    position: absolute;
+
+    &:nth-child(1) {
+      top: 0;
+      left: 60px;
+    }
+
+    &:nth-child(2) {
+      top: 120px;
+      left: 60px;
+    }
+
+    &:nth-child(3) {
+      top: 60px;
+      left: 0px;
+    }
+
+    &:nth-child(4) {
+      top: 60px;
+      left: 120px;
+    }
+
+    &:nth-child(5) {
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0px;
+    }
+  }
+}
