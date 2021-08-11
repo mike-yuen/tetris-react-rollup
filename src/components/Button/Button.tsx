@@ -16,7 +16,7 @@ const iconPaths: { [key: string]: string } = {
   refresh: "M446.709,166.059c-4.698-7.51-14.73-9.243-21.724-4.043l-48.677,36.519c-6.094,4.585-7.793,13.023-3.926,19.6 C384.73,239.156,391,261.656,391,285.02C391,359.464,330.443,422,256,422s-135-62.536-135-136.98 c0-69.375,52.588-126.68,120-134.165v44.165c0,12.434,14.266,19.357,23.994,11.997l120-90c8.006-5.989,7.994-18.014,0-23.994 l-120-90C255.231-4.37,241,2.626,241,15.02v45.498C123.9,68.267,31,166.001,31,285.02C31,409.093,131.928,512,256,512 s225-102.907,225-226.98C481,243.038,469.135,201.905,446.709,166.059z",
 };
 
-const Icon: FC<IconProps> = ({ type, size = 18, color }) => {
+const Icon: FC<IconProps> = ({ type, size, color }) => {
   const viewBox = type === "refresh" ? 512 : 124;
   return (
     <svg
@@ -32,6 +32,7 @@ const Icon: FC<IconProps> = ({ type, size = 18, color }) => {
 
 const Button: FC<ButtonProps> = ({
   size = 32,
+  iconSize = 18,
   theme = "light",
   type,
   onMouseDown,
@@ -50,7 +51,7 @@ const Button: FC<ButtonProps> = ({
       onTouchEnd={onTouchEnd}
     >
       <div className="children">
-        <Icon type={type} color={iconColor} />
+        <Icon type={type} size={iconSize} color={iconColor} />
       </div>
     </button>
   );

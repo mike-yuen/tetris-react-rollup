@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 export interface ButtonProps {
   children?: ReactNode;
   size: number;
+  iconSize?: number;
   theme: "light" | "dark";
   type: "up" | "down" | "left" | "right" | "refresh",
   onMouseDown?: () => void;
