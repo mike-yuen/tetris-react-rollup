@@ -1,11 +1,26 @@
 import { TetrisState } from "./state";
-import { ActionType, SetMax, TetrisActions } from "./actions";
+import { ActionType, Start, TetrisActions } from "./types";
+import { MatrixUtils } from "@/utils/MatrixUtils";
+import { GameState } from "@/interface/GameState";
+import {
+  setCurrent,
+  setGameState,
+  setMatrix,
+  setNext,
+  setPoints,
+  setSpeed,
+} from "./actions";
+import { PieceFactory } from "@/factory/PieceFactory";
+
+const pieceFactory: PieceFactory = new PieceFactory();
 
 export function tetrisReducer(
   state: TetrisState,
   action: TetrisActions
 ): TetrisState {
   switch (action.type) {
+    case ActionType.Start:
+      return action.payload;
     case ActionType.SetMatrix:
       return { ...state, matrix: action.payload };
     case ActionType.SetCurrent:
@@ -37,7 +52,22 @@ export function tetrisReducer(
   }
 }
 
-export const setMax = (max: number): SetMax => ({
-  type: ActionType.SetMax,
-  payload: max,
-});
+export const start = (state: TetrisState): Start => {
+  const newState: TetrisState = Object.assign({}, state);
+  if (!state.current) {
+    newState.current = state.next;
+    newState.next = pieceFactory.getRandomPiece();
+  }
+  const { initLine, initSpeed } = state;
+
+  newState.points = 190;
+  newState.gameState = GameState.Started;
+  newState.matrix = MatrixUtils.getStartBoard(initLine);
+  newState.speed = initSpeed;
+
+  return { type: ActionType.Start, payload: newState };
+
+  // this._unsubscribe();
+  // this.auto(MatrixUtil.getSpeedDelay(initSpeed));
+  // this._setLocked(false);
+};

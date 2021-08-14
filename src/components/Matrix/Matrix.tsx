@@ -45,7 +45,7 @@ const Matrix: FC = () => {
   return (
     <div className="tr-matrix">
       {temp.map((item) => (
-        <Tile color="cyan" filled={true} animated />
+        <Tile color="purple" filled={true} animated />
       ))}
     </div>
   );
