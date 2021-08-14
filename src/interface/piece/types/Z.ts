@@ -1,20 +1,20 @@
-import { Piece } from './piece';
-import { Shapes } from './shape';
-import { PieceRotation, PieceTypes } from './piece-enum';
+import { Piece } from "@/interface/piece/Piece";
+import { Shapes } from "@/interface/piece/shape";
+import { PieceRotation, PieceTypes } from "@/interface/piece/PieceEnum";
 
 const SHAPES_Z: Shapes = [];
 SHAPES_Z[PieceRotation.Deg0] = [
   [0, 0, 0, 0],
   [0, 1, 0, 0],
   [1, 1, 0, 0],
-  [1, 0, 0, 0]
+  [1, 0, 0, 0],
 ];
 
 SHAPES_Z[PieceRotation.Deg90] = [
   [0, 0, 0, 0],
   [0, 0, 0, 0],
   [1, 1, 0, 0],
-  [0, 1, 1, 0]
+  [0, 1, 1, 0],
 ];
 
 export class PieceZ extends Piece {
@@ -23,7 +23,7 @@ export class PieceZ extends Piece {
     this.type = PieceTypes.Z;
     this.next = [
       [1, 1, 0, 0],
-      [0, 1, 1, 0]
+      [0, 1, 1, 0],
     ];
     this.setShapes(SHAPES_Z);
   }

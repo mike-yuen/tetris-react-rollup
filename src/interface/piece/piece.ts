@@ -1,6 +1,6 @@
-import { PieceRotation, PieceTypes } from './piece-enum';
-import { Shape, Shapes } from './shape';
-import { MatrixUtil } from '../utils/matrix';
+import { MatrixUtils } from "@/utils/MatrixUtils";
+import { PieceRotation, PieceTypes } from "./PieceEnum";
+import { Shape, Shapes } from "./shape";
 
 export class Piece {
   x: number;
@@ -11,7 +11,7 @@ export class Piece {
   next: Shape;
 
   private _shapes: Shapes;
-  private _lastConfig: Partial<Piece>;
+  private lastConfig: Partial<Piece> | null;
 
   constructor(x: number, y: number) {
     this.x = x;
@@ -19,28 +19,29 @@ export class Piece {
   }
 
   store(): Piece {
-    this._lastConfig = {
+    this.lastConfig = {
       x: this.x,
       y: this.y,
       rotation: this.rotation,
-      shape: this.shape
+      shape: this.shape,
     };
     return this._newPiece();
   }
 
   clearStore(): Piece {
-    this._lastConfig = null;
+    this.lastConfig = null;
     return this._newPiece();
   }
 
   revert(): Piece {
-    if (this._lastConfig) {
-      for (const key in this._lastConfig) {
-        if (this._lastConfig.hasOwnProperty(key)) {
-          this[key] = this._lastConfig[key];
+    if (this.lastConfig) {
+      let key: keyof Piece;
+      for (const key in this.lastConfig) {
+        if (this.lastConfig.hasOwnProperty(key)) {
+          this[key] = this.lastConfig[key];
         }
       }
-      this._lastConfig = null;
+      this.lastConfig = null;
     }
     return this._newPiece();
   }
@@ -70,11 +71,11 @@ export class Piece {
   }
 
   get positionOnGrid(): number[] {
-    const positions = [];
+    const positions: number[] = [];
     for (let row = 0; row < 4; row++) {
       for (let col = 0; col < 4; col++) {
         if (this.shape[row][col]) {
-          const position = (this.y + row) * MatrixUtil.Width + this.x + col;
+          const position = (this.y + row) * MatrixUtils.width + this.x + col;
           if (position >= 0) {
             positions.push(position);
           }
@@ -115,7 +116,7 @@ export class Piece {
     piece.type = this.type;
     piece.next = this.next;
     piece.setShapes(this._shapes);
-    piece._lastConfig = this._lastConfig;
+    piece.lastConfig = this.lastConfig;
     return piece;
   }
 }
