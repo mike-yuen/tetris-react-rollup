@@ -1,6 +1,6 @@
-import { Piece } from './piece';
-import { PieceRotation, PieceTypes } from './piece-enum';
-import { Shapes } from './shape';
+import { Piece } from "@/interface/piece/Piece";
+import { Shapes } from "@/interface/piece/shape";
+import { PieceRotation, PieceTypes } from "@/interface/piece/PieceEnum";
 
 const SHAPES_I: Shapes = [];
 SHAPES_I[PieceRotation.Deg0] = [

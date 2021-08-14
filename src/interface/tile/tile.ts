@@ -3,9 +3,11 @@ export class Tile {
   public isSolid: boolean;
   private value: TileValue;
 
-  constructor(val: TileValue) {
-    this.value = val;
+  constructor(value: TileValue, isSolid: boolean) {
+    this.value = value;
+    this.isSolid = isSolid;
   }
+
   get isFilled(): boolean {
     return this.value === 1;
   }

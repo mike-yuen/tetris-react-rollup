@@ -1,8 +1,7 @@
-import { Tile } from './tile';
+import { Tile } from "./Tile";
 
 export class FilledTile extends Tile {
   constructor(isSolid = false) {
-    super(1);
-    this.isSolid = isSolid;
+    super(1, isSolid);
   }
 }

@@ -1,13 +1,13 @@
-import { Piece } from './piece';
-import { Shapes } from './shape';
-import { PieceRotation, PieceTypes } from './piece-enum';
+import { Piece } from "@/interface/piece/Piece";
+import { Shapes } from "@/interface/piece/shape";
+import { PieceRotation, PieceTypes } from "@/interface/piece/PieceEnum";
 
 const SHAPES_DOT: Shapes = [];
 SHAPES_DOT[PieceRotation.Deg0] = [
   [0, 0, 0, 0],
   [0, 0, 0, 0],
   [0, 0, 0, 0],
-  [1, 0, 0, 0]
+  [1, 0, 0, 0],
 ];
 
 export class PieceDot extends Piece {
@@ -16,7 +16,7 @@ export class PieceDot extends Piece {
     this.type = PieceTypes.Dot;
     this.next = [
       [0, 0, 0, 0],
-      [1, 0, 0, 0]
+      [1, 0, 0, 0],
     ];
     this.setShapes(SHAPES_DOT);
   }
