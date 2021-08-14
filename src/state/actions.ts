@@ -3,99 +3,84 @@ import { Piece } from "@/interface/piece/Piece";
 import { Speed } from "@/interface/Speed";
 import { Tile } from "@/interface/tile/Tile";
 import { TetrisState } from "./state";
-
-export enum ActionType {
-  SetMatrix,
+import {
+  ActionType,
+  SetClearedLines,
   SetCurrent,
+  SetGameState,
+  SetInitLine,
+  SetInitSpeed,
+  SetLocked,
+  SetMatrix,
+  SetMax,
   SetNext,
   SetPoints,
-  SetLocked,
-  SetSound,
-  SetInitSpeed,
-  SetSpeed,
-  SetInitLine,
-  SetClearedLines,
-  SetGameState,
   SetSaved,
-  SetMax,
-}
+  SetSound,
+  SetSpeed,
+} from "./types";
 
-export interface SetMatrix {
-  type: ActionType.SetMatrix;
-  payload: Tile[];
-}
+export const setMatrix = (tiles: Tile[]): SetMatrix => ({
+  type: ActionType.SetMatrix,
+  payload: tiles,
+});
 
-export interface SetCurrent {
-  type: ActionType.SetCurrent;
-  payload: Piece | null;
-}
+export const setCurrent = (piece: Piece | null): SetCurrent => ({
+  type: ActionType.SetCurrent,
+  payload: piece,
+});
 
-export interface SetNext {
-  type: ActionType.SetNext;
-  payload: Piece;
-}
+export const setNext = (piece: Piece): SetNext => ({
+  type: ActionType.SetNext,
+  payload: piece,
+});
 
-export interface SetPoints {
-  type: ActionType.SetPoints;
-  payload: number;
-}
+export const setPoints = (points: number): SetPoints => ({
+  type: ActionType.SetPoints,
+  payload: points,
+});
 
-export interface SetLocked {
-  type: ActionType.SetLocked;
-  payload: boolean;
-}
+export const setLocked = (isLocked: boolean): SetLocked => ({
+  type: ActionType.SetLocked,
+  payload: isLocked,
+});
 
-export interface SetSound {
-  type: ActionType.SetSound;
-  payload: boolean;
-}
+export const setSound = (sound: boolean): SetSound => ({
+  type: ActionType.SetSound,
+  payload: sound,
+});
 
-export interface SetInitSpeed {
-  type: ActionType.SetInitSpeed;
-  payload: Speed;
-}
+export const setInitSpeed = (speed: Speed): SetInitSpeed => ({
+  type: ActionType.SetInitSpeed,
+  payload: speed,
+});
 
-export interface SetSpeed {
-  type: ActionType.SetSpeed;
-  payload: Speed;
-}
+export const setSpeed = (speed: Speed): SetSpeed => ({
+  type: ActionType.SetSpeed,
+  payload: speed,
+});
 
-export interface SetInitLine {
-  type: ActionType.SetInitLine;
-  payload: number;
-}
+export const setInitLine = (line: number): SetInitLine => ({
+  type: ActionType.SetInitLine,
+  payload: line,
+});
 
-export interface SetClearedLines {
-  type: ActionType.SetClearedLines;
-  payload: number;
-}
+export const setClearedLines = (lines: number): SetClearedLines => ({
+  type: ActionType.SetClearedLines,
+  payload: lines,
+});
 
-export interface SetGameState {
-  type: ActionType.SetGameState;
-  payload: GameState;
-}
+export const setGameState = (gameState: GameState): SetGameState => ({
+  type: ActionType.SetGameState,
+  payload: gameState,
+});
 
-export interface SetSaved {
-  type: ActionType.SetSaved;
-  payload: TetrisState | null;
-}
+export const setSaved = (saved: TetrisState | null): SetSaved => ({
+  type: ActionType.SetSaved,
+  payload: saved,
+});
 
-export interface SetMax {
-  type: ActionType.SetMax;
-  payload: number;
-}
-
-export type TetrisActions =
-  | SetMatrix
-  | SetCurrent
-  | SetNext
-  | SetPoints
-  | SetLocked
-  | SetSound
-  | SetInitSpeed
-  | SetSpeed
-  | SetInitLine
-  | SetClearedLines
-  | SetGameState
-  | SetSaved
-  | SetMax;
+export const setMax = (max: number): SetMax => ({
+  type: ActionType.SetMax,
+  payload: max,
+});

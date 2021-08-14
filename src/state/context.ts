@@ -1,7 +1,7 @@
 import React from "react";
 import { PieceFactory } from "@/factory/PieceFactory";
 import { TetrisState, initialTetrisState } from "./state";
-import { TetrisActions } from "./actions";
+import { TetrisActions } from "./types";
 
 export const TetrisContext = React.createContext<{
   state: TetrisState;

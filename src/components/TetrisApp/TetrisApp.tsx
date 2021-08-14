@@ -4,19 +4,16 @@ import Matrix from "@/components/Matrix/Matrix";
 import Score from "@/components/Score/Score";
 import { PieceFactory } from "@/factory/PieceFactory";
 import { TetrisContext } from "@/state/context";
-import { setMax, tetrisReducer } from "@/state/reducer";
+import { start, tetrisReducer } from "@/state/reducer";
 import { initialTetrisState } from "@/state/state";
 import { TetrisAppProps } from "./TetrisApp.types";
 
 import "./TetrisApp.scss";
 
-const onMouseDown = (data: string) => {
-  console.log("down: ", data);
-};
-
-const onMouseUp = (data: string) => {
-  console.log("up: ", data);
-};
+document.addEventListener("keydown", (event) => {
+  let code: number = event.keyCode || event.which;
+  console.log("----- keycode: ", code);
+});
 
 const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
   const [state, dispatch] = useReducer(
@@ -24,9 +21,17 @@ const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
     initialTetrisState(new PieceFactory())
   );
 
-  const increaseMax = (number: number) => {
-    console.log("number: ", number);
-    dispatch(setMax(number));
+  const startGame = () => {
+    dispatch(start(state));
+  };
+
+  const onMouseDown = (data: string) => {
+    // console.log("down: ", data);
+    startGame();
+  };
+
+  const onMouseUp = (data: string) => {
+    // console.log("up: ", data);
   };
 
   return (
@@ -34,7 +39,7 @@ const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
       <div className={`tr-app tr-app--${theme}`}>
         <div className="tr-app__react">
           <div className="tr-app__view">
-            <div className="tr-app__next-hold"></div>
+            <div className="tr-app__next-hold">{state.points}</div>
             <div className="tr-app__score">
               <Score />
             </div>
