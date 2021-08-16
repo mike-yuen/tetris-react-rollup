@@ -1,5 +1,6 @@
 export interface TileProps {
-  color: "blue" | "cyan" | "green" | "purple" | "red" | "yellow";
+  // "blue" | "cyan" | "green" | "purple" | "red" | "yellow"
+  color: string | undefined;
   filled: boolean;
   animated: boolean;
 }

@@ -1,11 +1,12 @@
 import { EmptyTile } from "@/interface/tile/EmptyTile";
 import { Tile } from "@/interface/tile/Tile";
 import { FilledTile } from "@/interface/tile/FilledTile";
+import { Color, randomEnumKey } from "@/interface/piece/PieceEnum";
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export class MatrixUtils {
   static readonly width = 10;
-  static readonly height = 14;
+  static readonly height = 16;
   static points = [100, 300, 700, 1500];
   static maxPoint = 999999;
   static speedDelay = [700, 600, 450, 320, 240, 160];
@@ -37,7 +38,9 @@ export class MatrixUtils {
 
   static getRandomFilledRow(min: number, max: number): Tile[] {
     const count = parseInt(`${(max - min + 1) * Math.random() + min}`, 10);
-    const line: Tile[] = new Array(count).fill(new FilledTile(true));
+    const line: Tile[] = new Array(count).fill(
+      new FilledTile(true, randomEnumKey(Color))
+    );
 
     for (let i = 0, len = 10 - count; i < len; i++) {
       const index = parseInt(`${(line.length + 1) * Math.random()}`, 10);
@@ -52,7 +55,7 @@ export class MatrixUtils {
   }
 
   static get FullRow(): Tile[] {
-    return new Array(this.width).fill(new FilledTile());
+    return new Array(this.width).fill(new FilledTile(false));
   }
 
   static getSpeedDelay(speed: number) {

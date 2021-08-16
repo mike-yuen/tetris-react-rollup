@@ -1,5 +1,5 @@
 import { MatrixUtils } from "@/utils/MatrixUtils";
-import { PieceRotation, PieceTypes } from "./PieceEnum";
+import { PieceRotation, PieceTypes, Color, randomEnumKey } from "./PieceEnum";
 import { Shape, Shapes } from "./shape";
 
 export class Piece {
@@ -9,6 +9,7 @@ export class Piece {
   type: PieceTypes;
   shape: Shape;
   next: Shape;
+  color: string = randomEnumKey(Color);
 
   private _shapes: Shapes;
   private lastConfig: Partial<Piece> | null;
@@ -24,6 +25,7 @@ export class Piece {
       y: this.y,
       rotation: this.rotation,
       shape: this.shape,
+      color: this.color,
     };
     return this._newPiece();
   }
@@ -35,7 +37,6 @@ export class Piece {
 
   revert(): Piece {
     if (this.lastConfig) {
-      let key: keyof Piece;
       for (const key in this.lastConfig) {
         if (this.lastConfig.hasOwnProperty(key)) {
           this[key] = this.lastConfig[key];
@@ -99,6 +100,7 @@ export class Piece {
       }
       col--;
     }
+    return col;
   }
 
   get leftCol() {
@@ -116,6 +118,7 @@ export class Piece {
     piece.type = this.type;
     piece.next = this.next;
     piece.setShapes(this._shapes);
+    piece.color = this.color;
     piece.lastConfig = this.lastConfig;
     return piece;
   }
