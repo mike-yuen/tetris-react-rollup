@@ -1,7 +1,9 @@
 import { Tile } from "./Tile";
 
 export class FilledTile extends Tile {
-  constructor(isSolid = false) {
-    super(1, isSolid);
+  constructor(isSolid = false, color?: string) {
+    super(1);
+    this.color = color;
+    this.isSolid = isSolid;
   }
 }

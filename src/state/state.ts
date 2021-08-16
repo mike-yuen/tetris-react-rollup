@@ -7,7 +7,7 @@ import { MatrixUtils } from "@/utils/MatrixUtils";
 
 export interface TetrisState {
   matrix: Tile[];
-  current: Piece | null;
+  current: Piece | null | undefined;
   next: Piece;
   points: number;
   locked: boolean;

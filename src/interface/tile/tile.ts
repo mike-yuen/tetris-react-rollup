@@ -1,11 +1,12 @@
 export type TileValue = 0 | 1 | 2;
+
 export class Tile {
   public isSolid: boolean;
+  public color: string | undefined;
   private value: TileValue;
 
-  constructor(value: TileValue, isSolid: boolean) {
+  constructor(value: TileValue) {
     this.value = value;
-    this.isSolid = isSolid;
   }
 
   get isFilled(): boolean {
