@@ -18,17 +18,14 @@ export default {
   ],
   output: {
     dir: "dist",
-    format: "cjs",
+    format: "esm",
     preserveModules: true,
     preserveModulesRoot: "src",
     sourcemap: true,
   },
   plugins: [
+    resolve(),
     postcss(),
-    resolve({
-      jsnext: true,
-      browser: true
-    }),
     commonjs(),
     typescript({
       tsconfig: "./tsconfig.build.json",
