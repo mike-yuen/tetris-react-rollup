@@ -1,5 +1,5 @@
 import { Piece } from "@/interface/piece/Piece";
-import { Shapes } from "@/interface/piece/shape";
+import { Shapes } from "@/interface/piece/Shape";
 import { PieceRotation, PieceTypes } from "@/interface/piece/PieceEnum";
 
 const SHAPES_S: Shapes = [];
