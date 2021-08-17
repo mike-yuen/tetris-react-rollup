@@ -25,6 +25,10 @@ module.exports = {
             test: /\.scss$/,
             use: ['style-loader', 'css-loader', { loader: 'sass-loader' }],
             include: path.resolve(__dirname, '../src'),
+        }, {
+            test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+            use: ['url-loader', { loader: 'file-loader' }],
+            include: path.resolve(__dirname, '../src')
         });
 
         // Return the altered config
