@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 const fs = require('fs');
 
-export const getFiles = (entry, extensions = [], excludeExtensions = []) => {
+const getFiles = (entry, extensions = [], excludeExtensions = []) => {
   let fileNames = [];
   const dirs = fs.readdirSync(entry);
 
@@ -26,3 +26,7 @@ export const getFiles = (entry, extensions = [], excludeExtensions = []) => {
 
   return fileNames;
 };
+
+module.exports = {
+  getFiles,
+}

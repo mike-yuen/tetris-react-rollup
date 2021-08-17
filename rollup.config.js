@@ -4,7 +4,7 @@ import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
 import visualizer from "rollup-plugin-visualizer";
 import { terser } from "rollup-plugin-terser";
-import { getFiles } from "./scripts/buildUtils";
+const { getFiles } = require("./scripts/buildUtils");
 
 const extensions = [".js", ".ts", ".jsx", ".tsx"];
 
