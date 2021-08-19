@@ -18,7 +18,7 @@ export default {
   ],
   output: {
     dir: "dist",
-    format: "esm",
+    format: "cjs",
     preserveModules: true,
     preserveModulesRoot: "src",
     sourcemap: true,

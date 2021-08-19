@@ -15,10 +15,11 @@ import {
   tetrisReducer,
 } from "@/state/reducer";
 import { initialTetrisState, TetrisState } from "@/state/state";
+import { MatrixUtils } from "@/utils/MatrixUtils";
 import { TetrisAppProps } from "./TetrisApp.types";
+import sound from "../../assets/tetris-sound.mp3";
 
 import "./TetrisApp.scss";
-import { MatrixUtils } from "@/utils/MatrixUtils";
 
 const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
   const [state, dispatch] = useReducer(
@@ -140,8 +141,25 @@ const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
     };
   }, [handleKeyDown]);
 
+  const audioTune = new Audio(sound);
+  useEffect(() => {
+    audioTune.load();
+    console.log("===== ", audioTune.duration);
+  }, []);
+
+  const playSound = () => {
+    audioTune.play();
+  };
+
+  // pause audio sound
+  const pauseSound = () => {
+    audioTune.pause();
+  };
+
   return (
     <TetrisContext.Provider value={{ state, dispatch }}>
+      <button onClick={playSound}>Play</button>
+      <button onClick={pauseSound}>Pause</button>
       <div className={`tr-app tr-app--${theme}`}>
         <div className="tr-app__react">
           <div className="tr-app__view">
