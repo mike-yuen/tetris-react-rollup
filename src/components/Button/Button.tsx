@@ -40,7 +40,7 @@ const Button: FC<ButtonProps> = ({
   onTouchStart,
   onTouchEnd,
 }) => {
-  const iconColor = theme === "light" ? "#3d76b5" : "#edeae9";
+  const iconColor = theme === "light" ? "#023f76" : "#edeae9";
   return (
     <button
       className={`tr-button tr-button--${theme}`}
