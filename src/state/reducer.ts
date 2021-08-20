@@ -16,7 +16,8 @@ import { PieceFactory } from "@/factory/PieceFactory";
 import { Tile } from "@/interface/tile/Tile";
 import { EmptyTile } from "@/interface/tile/EmptyTile";
 import { FilledTile } from "@/interface/tile/FilledTile";
-import { Color, randomEnumKey } from "@/interface/piece/PieceEnum";
+import * as soundService from "@/services/sound.services";
+import { Speed } from "@/interface/Speed";
 
 const pieceFactory: PieceFactory = new PieceFactory();
 
@@ -52,7 +53,7 @@ const startReducer = (state: TetrisState): TetrisState => {
   }
   const { initLine, initSpeed } = state;
 
-  newState.points = 190;
+  newState.points = 0;
   newState.gameState = GameState.Started;
   newState.matrix = MatrixUtils.getStartBoard(initLine);
   newState.speed = initSpeed;
@@ -184,11 +185,7 @@ const clearPiece = (state: TetrisState) => {
   let newMatrix = [...state.matrix];
   state.current = state.current ? state.current.clearStore() : state.current; //
   loopThroughPiecePosition(state, (position: number) => {
-    newMatrix = updateMatrix(
-      newMatrix,
-      position,
-      new EmptyTile()
-    );
+    newMatrix = updateMatrix(newMatrix, position, new EmptyTile());
   });
   return newMatrix;
 };
@@ -223,11 +220,21 @@ const update = (state: TetrisState): TetrisState => {
     state.current = state.current ? state.current.revert() : state.current;
     state.matrix = markAsSolid(state);
     state.matrix = drawPiece(state);
-    state.matrix = clearFullLines(state);
+    const { matrix, numberOfClearedLines } = clearFullLines(state);
+    if (numberOfClearedLines) {
+      const { points, clearedLines, speed } = setPointsAndSpeed(
+        state,
+        numberOfClearedLines
+      );
+      state.points = points;
+      state.clearedLines = clearedLines;
+      state.speed = speed;
+    }
+    state.matrix = matrix;
     state.current = state.next;
     state.next = pieceFactory.getRandomPiece();
     if (isGameOver(state)) {
-      // this._onGameOver();
+      onGameOver();
       state = {
         ...initialTetrisState(pieceFactory),
         gameState: GameState.Over,
@@ -238,7 +245,6 @@ const update = (state: TetrisState): TetrisState => {
 
   state.matrix = drawPiece(state);
   state.locked = false;
-  // console.log("6", newState.matrix);
   return state;
 };
 
@@ -281,7 +287,9 @@ const markAsSolid = (state: TetrisState): Tile[] => {
   return newMatrix;
 };
 
-const clearFullLines = (state: TetrisState): Tile[] => {
+const clearFullLines = (
+  state: TetrisState
+): { matrix: Tile[]; numberOfClearedLines: number } => {
   let numberOfClearedLines = 0;
   const newMatrix = [...state.matrix];
   for (let row = MatrixUtils.height - 1; row >= 0; row--) {
@@ -289,7 +297,6 @@ const clearFullLines = (state: TetrisState): Tile[] => {
     const fullRowTiles = newMatrix.slice(pos, pos + MatrixUtils.width);
     const isFullRow = fullRowTiles.every((x) => x.isSolid);
     if (isFullRow) {
-      console.log("isFullRow: ", isFullRow);
       numberOfClearedLines++;
       const topPortion = newMatrix.slice(0, row * MatrixUtils.width);
       newMatrix.splice(
@@ -299,8 +306,34 @@ const clearFullLines = (state: TetrisState): Tile[] => {
       );
     }
   }
-  return newMatrix;
-  // this._setPointsAndSpeed(numberOfClearedLines);
+  // setPointsAndSpeed(numberOfClearedLines);
+  return { matrix: newMatrix, numberOfClearedLines: numberOfClearedLines };
+};
+
+const setPointsAndSpeed = (
+  state: TetrisState,
+  numberOfClearedLines: number
+): {
+  points: number;
+  clearedLines: number;
+  speed: Speed;
+} => {
+  soundService.clear();
+  const { points, clearedLines, speed, initSpeed } = state;
+  const newLines = clearedLines + numberOfClearedLines;
+  const newPoints = getPoints(numberOfClearedLines, points);
+  const newSpeed = getSpeed(newLines, initSpeed);
+
+  return {
+    points: newPoints,
+    clearedLines: newLines,
+    speed: newSpeed,
+  };
+
+  //   if (newSpeed !== speed) {
+  //     this._unsubscribe();
+  //     this.auto(MatrixUtil.getSpeedDelay(newSpeed));
+  //   }
 };
 
 const isGameOver = (state: TetrisState): boolean => {
@@ -312,9 +345,22 @@ const isGameOver = (state: TetrisState): boolean => {
   return false;
 };
 
+const getSpeed = (totalLines: number, initSpeed: number): Speed => {
+  const addedSpeed = Math.floor(totalLines / MatrixUtils.height);
+  let newSpeed = (initSpeed + addedSpeed) as Speed;
+  newSpeed = newSpeed > 6 ? 6 : newSpeed;
+  return newSpeed;
+};
+
+const getPoints = (numberOfClearedLines: number, points: number): number => {
+  const addedPoints = MatrixUtils.points[numberOfClearedLines - 1];
+  const newPoints = points + addedPoints;
+  return newPoints > MatrixUtils.maxPoint ? MatrixUtils.maxPoint : newPoints;
+};
+
 const onGameOver = () => {
   // this.pause();
-  // this._soundManager.gameOver();
+  soundService.gameOver();
   // const { points, max, sound } = this._query.raw;
   // const maxPoint = Math.max(points, max);
   // LocalStorageService.setMaxPoint(maxPoint);

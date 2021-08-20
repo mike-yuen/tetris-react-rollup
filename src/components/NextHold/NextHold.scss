@@ -1,11 +1,13 @@
 @import "../../assets/global.scss";
 
-.tr-score {
+.tr-next-hold {
   width: 100%;
   height: 100%;
 
   &__heading {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
     text-transform: uppercase;
     color: color(dark-blue);
     font-size: 16px;
@@ -16,7 +18,7 @@
     margin-bottom: 10px;
   }
 
-  &__board {
+  &__pieces {
     display: flex;
     align-items: center;
     justify-content: center;
