@@ -3,4 +3,5 @@ export interface TileProps {
   color: string | undefined;
   filled: boolean;
   animated: boolean;
+  size?: string;
 }
