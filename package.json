@@ -1,8 +1,13 @@
 {
   "name": "tetris-react-rollup",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "description": "A simple tetris game with React and Rollup",
   "main": "dist/index.js",
+  "files": [
+    "dist/*",
+    "*.json",
+    "*.js"
+  ],
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
