@@ -16,12 +16,13 @@
     letter-spacing: 6px;
     font-stretch: expanded;
     margin-bottom: 10px;
+    user-select: none;
   }
 
   &__pieces {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     height: 80px;
     border-radius: 28px;
     color: color(dark-blue);

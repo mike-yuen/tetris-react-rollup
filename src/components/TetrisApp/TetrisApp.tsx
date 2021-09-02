@@ -21,6 +21,8 @@ import { TetrisAppProps } from "./TetrisApp.types";
 
 import "./TetrisApp.scss";
 import NextHold from "../NextHold/NextHold";
+import Loader from "../Loader/Loader";
+import { GameState } from "@/interface/GameState";
 
 const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
   const [state, dispatch] = useReducer(
@@ -138,6 +140,12 @@ const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
             </div>
           </div>
           <div className="tr-app__screen">
+            {state.gameState === GameState.Loading && (
+              <div className="tr-app__loader">
+                <Loader />
+                <p>Press "Space" to start</p>
+              </div>
+            )}
             <Matrix />
           </div>
         </div>
