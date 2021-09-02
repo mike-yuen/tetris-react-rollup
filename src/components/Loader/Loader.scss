@@ -1,8 +1,9 @@
-$color1: #1994fd;
-$color2: #1c9efe;
-$color3: #20b3fb;
-$color4: #23c6fb;
-$color5: #23d3fb;
+@import "../../assets/global.scss";
+
+$color1: color(green);
+$color2: color(red);
+$color3: color(cyan);
+$color4: color(yellow);
 $shadow: 0 0 10px #a4f9fc;
 
 $size: 34px;
@@ -39,10 +40,6 @@ $wrapper-height: ($size + $jump);
     left: ($padding + $size) * 3;
     background-color: $color4;
   }
-  &:nth-child(5) {
-    left: ($padding + $size) * 4;
-    background-color: $color5;
-  }
 }
 
 @keyframes slide {
@@ -54,7 +51,7 @@ $wrapper-height: ($size + $jump);
   92%,
   100% {
     transform: translateX(($padding + $size) * 3);
-    background-color: $color5;
+    background-color: $color1;
   }
 }
 

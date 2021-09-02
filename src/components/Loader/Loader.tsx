@@ -9,7 +9,6 @@ const Loader: FC = () => {
       <div className="block jumper"></div>
       <div className="block jumper"></div>
       <div className="block jumper"></div>
-      {/* <div className="block jumper"></div> */}
     </div>
   );
 };
