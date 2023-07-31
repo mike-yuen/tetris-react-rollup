@@ -4,4 +4,5 @@ export interface TileProps {
   filled: boolean;
   animated: boolean;
   size?: string;
+  theme: "light" | "dark";
 }

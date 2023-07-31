@@ -1,4 +1,6 @@
 .tr-matrix {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
   padding: 18px 20px;
   overflow: hidden;
 }

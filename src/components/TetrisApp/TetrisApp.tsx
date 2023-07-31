@@ -3,6 +3,7 @@ import Keyboard from "@/components/Keyboard/Keyboard";
 import Matrix from "@/components/Matrix/Matrix";
 import Score from "@/components/Score/Score";
 import { PieceFactory } from "@/factory/PieceFactory";
+import { GameState } from "@/interface/GameState";
 import * as soundService from "@/services/sound.services";
 import { TetrisContext } from "@/state/context";
 import {
@@ -17,12 +18,11 @@ import {
 } from "@/state/reducer";
 import { initialTetrisState, TetrisState } from "@/state/state";
 import { MatrixUtils } from "@/utils/MatrixUtils";
-import { TetrisAppProps } from "./TetrisApp.types";
 
-import "./TetrisApp.scss";
-import NextHold from "../NextHold/NextHold";
 import Loader from "../Loader/Loader";
-import { GameState } from "@/interface/GameState";
+import NextHold from "../NextHold/NextHold";
+import "./TetrisApp.scss";
+import { TetrisAppProps } from "./TetrisApp.types";
 
 const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
   const [state, dispatch] = useReducer(
@@ -133,10 +133,10 @@ const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
         <div className="tr-app__react">
           <div className="tr-app__view">
             <div className="tr-app__next-hold">
-              <NextHold next={state.next} hold={state.next} />
+              <NextHold next={state.next} hold={state.next} theme={theme} />
             </div>
             <div className="tr-app__score">
-              <Score score={state.points} />
+              <Score score={state.points} theme={theme} />
             </div>
           </div>
           <div className="tr-app__screen">
@@ -146,11 +146,15 @@ const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
                 <p>Press "Space" to start</p>
               </div>
             )}
-            <Matrix />
+            <Matrix theme={theme} />
           </div>
         </div>
         <div className="tr-app__keyboard">
-          <Keyboard onMouseDown={onMouseDown} onMouseUp={onMouseUp} />
+          <Keyboard
+            onMouseDown={onMouseDown}
+            onMouseUp={onMouseUp}
+            theme={theme}
+          />
         </div>
       </div>
     </TetrisContext.Provider>

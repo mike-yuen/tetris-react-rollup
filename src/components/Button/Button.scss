@@ -9,8 +9,6 @@
   border-radius: 100%;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
-  box-shadow: -6px -6px 14px rgb(255 255 255 / 80%),
-    4px 4px 8px rgb(0 0 0 / 20%);
 
   &:active {
     opacity: 1;
@@ -20,16 +18,27 @@
 
   &--light {
     background: color(white);
+    box-shadow: -6px -6px 14px rgb(255 255 255 / 80%),
+      4px 4px 8px rgb(0 0 0 / 20%);
+
+    .children {
+      color: color(dark-blue);
+    }
   }
 
   &--dark {
     background: color(black);
+    box-shadow: -6px -6px 14px rgb(255 255 255 / 15%),
+      4px 4px 8px rgb(0 0 0 / 80%);
+
+    .children {
+      color: color(white);
+    }
   }
 
   .children {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #3d76b5;
   }
 }

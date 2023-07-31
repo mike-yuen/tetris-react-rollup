@@ -10,10 +10,32 @@
 
   &--light {
     background-color: color(white);
+
+    .tr-app__screen {
+      box-shadow: inset 12px 12px 14px rgba(0, 0, 0, 0.15),
+        inset -12px -12px 14px rgba(255, 255, 255, 0.8);
+    }
+
+    .tr-app__loader {
+      p {
+        color: color(dark-blue);
+      }
+    }
   }
 
   &--dark {
     background-color: color(black);
+
+    .tr-app__screen {
+      box-shadow: inset 12px 12px 14px rgba(0, 0, 0, 0.8),
+        inset -12px -12px 14px rgba(color(white), 0.1);
+    }
+
+    .tr-app__loader {
+      p {
+        color: color(white);
+      }
+    }
   }
 
   &__react {
@@ -40,8 +62,6 @@
     width: 100%;
     height: 704px;
     border-radius: 28px;
-    box-shadow: inset 12px 12px 14px rgba(0, 0, 0, 0.15),
-      inset -12px -12px 14px rgba(255, 255, 255, 0.8);
   }
 
   &__loader {
@@ -56,7 +76,6 @@
     z-index: 1;
 
     p {
-      color: color(dark-blue);
       font-size: 22px;
       font-family: "Nunito";
       font-weight: bold;

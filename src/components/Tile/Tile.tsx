@@ -3,10 +3,10 @@ import { TileProps } from "./Title.types";
 
 import "./Tile.scss";
 
-const Tile: FC<TileProps> = ({ color, filled, animated, size }) => {
+const Tile: FC<TileProps> = ({ color, filled, animated, size, theme }) => {
   return (
     <div
-      className={`tr-tile ${color ? `tr-tile--${color}` : ""} ${
+      className={`tr-tile  tr-tile--${theme} ${color ? `tr-tile--${color}` : ""} ${
         filled ? "tr-tile--filled" : ""
       } ${animated ? "tr-tile--animated" : ""} ${
         size === "sm" ? "tr-tile--sm" : ""

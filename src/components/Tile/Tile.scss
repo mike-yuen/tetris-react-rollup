@@ -9,6 +9,28 @@
   border-radius: 10px;
   margin: 4px;
 
+  &--light {
+    &::before {
+      background-color: #d6d9df;
+    }
+
+    &.tr-tile--filled {
+      box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.8),
+        4px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &--dark {
+    &::before {
+      background-color: #363b40;
+    }
+
+    &.tr-tile--filled {
+      box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.1),
+        4px 4px 10px rgba(0, 0, 0, 0.8);
+    }
+  }
+
   &::before {
     content: "";
     display: block;
@@ -18,7 +40,6 @@
     transform: translate(-50%, -50%);
     width: 5px;
     height: 5px;
-    background-color: #d6d9df;
     border-radius: 100%;
   }
 
@@ -34,9 +55,6 @@
   }
 
   &--filled {
-    box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.8),
-      4px 4px 10px rgba(0, 0, 0, 0.2);
-
     &::before {
       content: none;
     }

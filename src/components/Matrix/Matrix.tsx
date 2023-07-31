@@ -3,8 +3,9 @@ import Tile from "@/components/Tile";
 import { TetrisContext } from "@/state/context";
 
 import "./Matrix.scss";
+import { MatrixProps } from "./Matrix.types";
 
-const Matrix: FC = () => {
+const Matrix: FC<MatrixProps> = ({ theme = "light" }) => {
   const { state } = useContext(TetrisContext);
 
   return (
@@ -15,6 +16,7 @@ const Matrix: FC = () => {
           color={item.color}
           filled={item.isFilled}
           animated={item.isSolid}
+          theme={theme}
         />
       ))}
     </div>
