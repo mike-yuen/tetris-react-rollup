@@ -1,5 +1,5 @@
 import { Piece } from "@/interface/piece/Piece";
-import { Shape } from "@/interface/piece/shape";
+import { Shape } from "@/interface/piece/Shape";
 
 export interface NextHoldProps {
   next: Piece;

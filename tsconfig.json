@@ -4,7 +4,7 @@
     "target": "es5",
     "lib": ["es2018", "dom"],
     "sourceMap": false,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "moduleResolution": "node",
     "rootDir": "src",
     "noImplicitReturns": true,

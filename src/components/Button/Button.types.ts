@@ -5,7 +5,7 @@ export interface ButtonProps {
   size: number;
   iconSize?: number;
   theme: "light" | "dark";
-  type: "up" | "down" | "left" | "right" | "refresh",
+  type: "up" | "down" | "left" | "right" | "refresh";
   onMouseDown?: () => void;
   onMouseUp?: () => void;
   onTouchStart?: () => void;

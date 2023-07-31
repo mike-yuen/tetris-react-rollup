@@ -60,8 +60,8 @@ $wrapper-height: ($size + $jump);
 }
 
 @mixin shrink() {
-  top: $size/3;
-  height: $size/3 * 2;
+  top: calc($size / 3);
+  height: calc($size / 3) * 2;
 }
 @mixin default() {
   top: 0;
@@ -236,7 +236,7 @@ $wrapper-height: ($size + $jump);
 }
 
 .jumper {
-  transform-origin: -$padding/2;
+  transform-origin: calc(-1 * $padding / 2);
   &:nth-child(2) {
     animation: jump1 2.6s 0.2s infinite linear;
   }

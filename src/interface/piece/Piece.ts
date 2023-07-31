@@ -1,6 +1,6 @@
 import { MatrixUtils } from "@/utils/MatrixUtils";
 import { PieceRotation, PieceTypes, Color, randomEnumKey } from "./PieceEnum";
-import { Shape, Shapes } from "./shape";
+import { Shape, Shapes } from "./Shape";
 
 export class Piece {
   x: number;
