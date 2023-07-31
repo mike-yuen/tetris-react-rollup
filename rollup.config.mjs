@@ -17,6 +17,7 @@ export default {
     globals: {
       react: "react",
       "react-dom/client": "react-dom/client",
+      "react/jsx-runtime": "react/jsx-runtime",
     },
   },
   plugins: [
@@ -35,5 +36,5 @@ export default {
     //   open: true,
     // }),
   ],
-  external: ["react", "react-dom/client", "sass-loader"],
+  external: ["react", "react-dom/client", "react/jsx-runtime", "sass-loader"],
 };

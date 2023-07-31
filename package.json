@@ -1,6 +1,6 @@
 {
   "name": "tetris-react-rollup",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A simple tetris game with React and Rollup",
   "main": "dist/index.js",
   "files": [
