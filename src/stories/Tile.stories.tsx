@@ -1,5 +1,4 @@
-import React from "react";
-import { Meta, Story } from "@storybook/react/types-6-0";
+import { Meta, StoryFn } from "@storybook/react";
 
 import Tile from "@/components/Tile";
 import { TileProps } from "@/components/Tile/Title.types";
@@ -10,7 +9,7 @@ export default {
   component: Tile,
 } as Meta;
 
-const Template: Story<TileProps> = (args) => <Tile {...args} />;
+const Template: StoryFn<TileProps> = (args) => <Tile {...args} />;
 
 export const RedTile = Template.bind({});
 RedTile.args = {
