@@ -22,7 +22,7 @@ export enum Color {
   "yellow",
   "blue",
   "green",
-  "cyan"
+  "cyan",
 }
 
 export const randomEnumKey = (enumeration: any) => {

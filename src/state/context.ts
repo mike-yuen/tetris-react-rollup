@@ -5,8 +5,8 @@ import { TetrisActions } from "./actions";
 
 export const TetrisContext = React.createContext<{
   state: TetrisState;
-  dispatch: React.Dispatch<TetrisActions>;  
+  dispatch: React.Dispatch<TetrisActions>;
 }>({
-  state: initialTetrisState(new PieceFactory),
+  state: initialTetrisState(new PieceFactory()),
   dispatch: () => undefined,
 });

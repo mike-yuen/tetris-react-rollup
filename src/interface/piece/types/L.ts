@@ -7,26 +7,26 @@ SHAPES_L[PieceRotation.Deg0] = [
   [0, 0, 0, 0],
   [1, 0, 0, 0],
   [1, 0, 0, 0],
-  [1, 1, 0, 0]
+  [1, 1, 0, 0],
 ];
 
 SHAPES_L[PieceRotation.Deg90] = [
   [0, 0, 0, 0],
   [0, 0, 0, 0],
   [1, 1, 1, 0],
-  [1, 0, 0, 0]
+  [1, 0, 0, 0],
 ];
 SHAPES_L[PieceRotation.Deg180] = [
   [0, 0, 0, 0],
   [1, 1, 0, 0],
   [0, 1, 0, 0],
-  [0, 1, 0, 0]
+  [0, 1, 0, 0],
 ];
 SHAPES_L[PieceRotation.Deg270] = [
   [0, 0, 0, 0],
   [0, 0, 0, 0],
   [0, 0, 1, 0],
-  [1, 1, 1, 0]
+  [1, 1, 1, 0],
 ];
 
 export class PieceL extends Piece {
@@ -35,7 +35,7 @@ export class PieceL extends Piece {
     this.type = PieceTypes.L;
     this.next = [
       [0, 0, 1, 0],
-      [1, 1, 1, 0]
+      [1, 1, 1, 0],
     ];
     this.setShapes(SHAPES_L);
   }

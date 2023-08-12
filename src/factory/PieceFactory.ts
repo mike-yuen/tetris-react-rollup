@@ -11,8 +11,8 @@ export const SPAWN_POSITION_X = 4;
 export const SPAWN_POSITION_Y = -4;
 
 export class PieceFactory {
-  private available: typeof Piece[] = [];
-  private currentBag: typeof Piece[] = [];
+  private available: (typeof Piece)[] = [];
+  private currentBag: (typeof Piece)[] = [];
 
   constructor() {
     this.available.push(PieceI);
@@ -37,7 +37,7 @@ export class PieceFactory {
     this.shuffleArray(this.currentBag);
   }
 
-  shuffleArray(array: typeof Piece[]) {
+  shuffleArray(array: (typeof Piece)[]) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];

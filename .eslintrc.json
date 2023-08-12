@@ -21,10 +21,7 @@
     },
     "ecmaVersion": 12
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint"
-  ],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "quotes": 0,
     "@typescript-eslint/quotes": 0,
@@ -41,12 +38,7 @@
     "import/resolver": {
       "typescript": {},
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   }

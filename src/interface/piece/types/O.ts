@@ -7,7 +7,7 @@ SHAPES_O[PieceRotation.Deg0] = [
   [0, 0, 0, 0],
   [0, 0, 0, 0],
   [1, 1, 0, 0],
-  [1, 1, 0, 0]
+  [1, 1, 0, 0],
 ];
 
 export class PieceO extends Piece {
@@ -16,7 +16,7 @@ export class PieceO extends Piece {
     this.type = PieceTypes.O;
     this.next = [
       [0, 1, 1, 0],
-      [0, 1, 1, 0]
+      [0, 1, 1, 0],
     ];
     this.setShapes(SHAPES_O);
   }
