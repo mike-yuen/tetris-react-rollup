@@ -1,5 +1,5 @@
-import { TetrisContext } from "@/state/context";
-import { useContext } from "react";
+// import { TetrisContext } from "@/state/context";
+// import { useContext } from "react";
 
 const SOUND_FILE_PATH =
   "https://firebasestorage.googleapis.com/v0/b/tetris-assets.appspot.com/o/tetris-sound.mp3?alt=media&token=05aaed96-2852-485f-81b9-6b5331fb13a7";

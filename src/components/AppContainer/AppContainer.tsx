@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import "./AppContainer.css";
 
 export interface AppContainerProps {

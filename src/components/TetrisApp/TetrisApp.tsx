@@ -1,11 +1,13 @@
-import React, { FC, useCallback, useEffect, useReducer } from "react";
+import { FC, useEffect } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
+
 import Keyboard from "@/components/Keyboard/Keyboard";
+import Loader from "@/components/Loader/Loader";
 import Matrix from "@/components/Matrix/Matrix";
+import NextHold from "@/components/NextHold/NextHold";
 import Score from "@/components/Score/Score";
-import { PieceFactory } from "@/factory/PieceFactory";
 import { GameState } from "@/interface/GameState";
 import * as soundService from "@/services/sound.services";
-import { TetrisContext } from "@/state/context";
 import {
   auto,
   drop,
@@ -14,54 +16,48 @@ import {
   moveRight,
   rotate,
   start,
-  tetrisReducer,
-} from "@/state/reducer";
-import { initialTetrisState, TetrisState } from "@/state/state";
+} from "@/store/slice";
+import { RootState, store } from "@/store/store";
 import { MatrixUtils } from "@/utils/MatrixUtils";
 
-import Loader from "../Loader/Loader";
-import NextHold from "../NextHold/NextHold";
 import "./TetrisApp.scss";
 import { TetrisAppProps } from "./TetrisApp.types";
 
-const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
-  const [state, dispatch] = useReducer(
-    tetrisReducer,
-    initialTetrisState(new PieceFactory())
+const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
+  const dispatch = useDispatch();
+  const { current, initSpeed, next, points, gameState } = useSelector(
+    (state: RootState) => state.app
   );
 
-  const handleKeyDown = useCallback(
-    (event) => {
-      const { key } = event;
-      switch (key.toLowerCase()) {
-        case " ":
-          handleSpaceDown(state);
-          break;
-        case "arrowleft":
-        case "a":
-          handleLeftDown(state);
-          break;
-        case "arrowright":
-        case "d":
-          handleRightDown(state);
-          break;
-        case "arrowup":
-        case "w":
-          handleUpDown(state);
-          break;
-        case "arrowdown":
-        case "s":
-          handleDownDown(state);
-          break;
-        default:
-          break;
-      }
-    },
-    [state]
-  );
+  const handleKeyDown = (event) => {
+    const { key } = event;
+    switch (key.toLowerCase()) {
+      case " ":
+        handleSpaceDown();
+        break;
+      case "arrowleft":
+      case "a":
+        handleLeftDown();
+        break;
+      case "arrowright":
+      case "d":
+        handleRightDown();
+        break;
+      case "arrowup":
+      case "w":
+        handleUpDown();
+        break;
+      case "arrowdown":
+      case "s":
+        handleDownDown();
+        break;
+      default:
+        break;
+    }
+  };
 
-  const handleSpaceDown = (state: TetrisState) => {
-    if (state.current) {
+  const handleSpaceDown = () => {
+    if (current) {
       soundService.fall();
       dispatch(drop());
       return;
@@ -70,36 +66,36 @@ const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
     dispatch(start());
   };
 
-  const handleLeftDown = (state: TetrisState) => {
+  const handleLeftDown = () => {
     soundService.move();
-    if (state.current) {
+    if (current) {
       dispatch(moveLeft());
     } else {
       // this._tetrisService.decreaseLevel();
     }
   };
 
-  const handleUpDown = (state: TetrisState) => {
+  const handleUpDown = () => {
     soundService.rotate();
-    if (state.current) {
+    if (current) {
       dispatch(rotate());
     } else {
       // this._tetrisService.increaseStartLine();
     }
   };
 
-  const handleDownDown = (state: TetrisState) => {
+  const handleDownDown = () => {
     soundService.move();
-    if (state.current) {
+    if (current) {
       dispatch(moveDown());
     } else {
       // this._tetrisService.decreaseStartLine();
     }
   };
 
-  const handleRightDown = (state: TetrisState) => {
+  const handleRightDown = () => {
     soundService.move();
-    if (state.current) {
+    if (current) {
       dispatch(moveRight());
     } else {
       // this._tetrisService.decreaseLevel();
@@ -115,7 +111,7 @@ const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      dispatch(auto(MatrixUtils.getSpeedDelay(state.initSpeed)));
+      dispatch(auto({ delay: MatrixUtils.getSpeedDelay(initSpeed) }));
     }, 700);
     return () => clearInterval(interval);
   }, []);
@@ -128,19 +124,19 @@ const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
   }, [handleKeyDown]);
 
   return (
-    <TetrisContext.Provider value={{ state, dispatch }}>
+    <Provider store={store}>
       <div className={`tr-app tr-app--${theme}`}>
         <div className="tr-app__react">
           <div className="tr-app__view">
             <div className="tr-app__next-hold">
-              <NextHold next={state.next} hold={state.next} theme={theme} />
+              <NextHold next={next} hold={next} theme={theme} />
             </div>
             <div className="tr-app__score">
-              <Score score={state.points} theme={theme} />
+              <Score score={points} theme={theme} />
             </div>
           </div>
           <div className="tr-app__screen">
-            {state.gameState === GameState.Loading && (
+            {gameState === GameState.Loading && (
               <div className="tr-app__loader">
                 <Loader />
                 <p>Press "Space" to start</p>
@@ -157,7 +153,15 @@ const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
           />
         </div>
       </div>
-    </TetrisContext.Provider>
+    </Provider>
+  );
+};
+
+const TetrisApp: FC<TetrisAppProps> = ({ theme = "light" }) => {
+  return (
+    <Provider store={store}>
+      <Tetris theme={theme}></Tetris>
+    </Provider>
   );
 };
 

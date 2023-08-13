@@ -1,8 +1,8 @@
-import React, { FC, Fragment } from "react";
-import { NextHoldProps, PreviewPieceProps } from "./NextHold.types";
+import { FC, Fragment } from "react";
 
+import Tile from "@/components/Tile";
 import "./NextHold.scss";
-import Tile from "../Tile";
+import { NextHoldProps, PreviewPieceProps } from "./NextHold.types";
 
 const PreviewPiece: FC<PreviewPieceProps> = ({ piece, color, theme }) => {
   if (piece[0].length === 4 && piece[0][3] === 0 && piece[1][3] === 0) {

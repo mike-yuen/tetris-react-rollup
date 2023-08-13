@@ -16,8 +16,9 @@ export default {
     sourcemap: true,
     globals: {
       react: "react",
-      "react-dom/client": "react-dom/client",
+      "react-redux": "react-redux",
       "react/jsx-runtime": "react/jsx-runtime",
+      "@reduxjs/toolkit": "@reduxjs/toolkit",
     },
   },
   plugins: [
@@ -36,5 +37,11 @@ export default {
     //   open: true,
     // }),
   ],
-  external: ["react", "react-dom/client", "react/jsx-runtime", "sass-loader"],
+  external: [
+    "react",
+    "react-redux",
+    "react/jsx-runtime",
+    "@reduxjs/toolkit",
+    "sass-loader",
+  ],
 };

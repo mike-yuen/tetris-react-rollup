@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { ScoreProps } from "./Score.types";
 
 import "./Score.scss";

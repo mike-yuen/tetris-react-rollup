@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { TileProps } from "./Title.types";
 
 import "./Tile.scss";

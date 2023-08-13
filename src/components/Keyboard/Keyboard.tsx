@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { KeyboardProps } from "./Keyboard.types";
 import Button from "@/components/Button";
 
