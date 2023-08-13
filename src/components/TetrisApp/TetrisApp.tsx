@@ -14,6 +14,8 @@ import {
   moveDown,
   moveLeft,
   moveRight,
+  pause,
+  resume,
   rotate,
   start,
 } from "@/store/slice";
@@ -22,51 +24,60 @@ import { MatrixUtils } from "@/utils/MatrixUtils";
 
 import "./TetrisApp.scss";
 import { TetrisAppProps } from "./TetrisApp.types";
+import { TetrisKeyboard } from "@/interface/Keyboard";
+
+let tickInterval: NodeJS.Timer | null = null;
 
 const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
   const dispatch = useDispatch();
-  const { current, initSpeed, next, points, gameState } = useSelector(
+  const { current, initSpeed, next, points, gameState, speed } = useSelector(
     (state: RootState) => state.app
   );
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     const { key } = event;
-    switch (key.toLowerCase()) {
-      case " ":
-        handleSpaceDown();
+    switch (key.toLowerCase() as TetrisKeyboard) {
+      case TetrisKeyboard.Space:
+        handleSpace();
         break;
-      case "arrowleft":
-      case "a":
-        handleLeftDown();
+      case TetrisKeyboard.ArrowLeft:
+      case TetrisKeyboard.A:
+        handleLeft();
         break;
-      case "arrowright":
-      case "d":
-        handleRightDown();
+      case TetrisKeyboard.ArrowRight:
+      case TetrisKeyboard.D:
+        handleRight();
         break;
-      case "arrowup":
-      case "w":
-        handleUpDown();
+      case TetrisKeyboard.ArrowUp:
+      case TetrisKeyboard.W:
+        handleUp();
         break;
-      case "arrowdown":
-      case "s":
-        handleDownDown();
+      case TetrisKeyboard.ArrowDown:
+      case TetrisKeyboard.S:
+        handleDown();
+        break;
+      case TetrisKeyboard.P:
+        handlePause();
         break;
       default:
         break;
     }
   };
 
-  const handleSpaceDown = () => {
+  const handleSpace = () => {
     if (current) {
       soundService.fall();
       dispatch(drop());
       return;
     }
     soundService.start();
+    tickInterval = setInterval(() => {
+      dispatch(auto());
+    }, MatrixUtils.getSpeedDelay(initSpeed));
     dispatch(start());
   };
 
-  const handleLeftDown = () => {
+  const handleLeft = () => {
     soundService.move();
     if (current) {
       dispatch(moveLeft());
@@ -75,7 +86,7 @@ const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
     }
   };
 
-  const handleUpDown = () => {
+  const handleUp = () => {
     soundService.rotate();
     if (current) {
       dispatch(rotate());
@@ -84,7 +95,7 @@ const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
     }
   };
 
-  const handleDownDown = () => {
+  const handleDown = () => {
     soundService.move();
     if (current) {
       dispatch(moveDown());
@@ -93,7 +104,7 @@ const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
     }
   };
 
-  const handleRightDown = () => {
+  const handleRight = () => {
     soundService.move();
     if (current) {
       dispatch(moveRight());
@@ -102,19 +113,28 @@ const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
     }
   };
 
+  const handlePause = () => {
+    soundService.move();
+    if (gameState !== GameState.Started) {
+      dispatch(resume());
+      tickInterval = setInterval(() => {
+        dispatch(auto());
+      }, MatrixUtils.getSpeedDelay(speed));
+    } else {
+      if (tickInterval) {
+        clearInterval(tickInterval);
+        // tickInterval = null;
+      }
+      dispatch(pause());
+    }
+  };
+
   const onMouseDown = (key: string) => {
-    const event = { key };
+    const event = { key } as KeyboardEvent;
     handleKeyDown(event);
   };
 
   const onMouseUp = (key: string) => {};
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      dispatch(auto({ delay: MatrixUtils.getSpeedDelay(initSpeed) }));
-    }, 700);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);

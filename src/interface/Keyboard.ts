@@ -1,12 +1,16 @@
 /* eslint-disable no-shadow */
 export enum TetrisKeyboard {
-  Up = "arrowup",
-  Down = "arrowdown",
-  Left = "arrowleft",
-  Right = "arrowright",
-  Space = "space",
+  W = "w",
+  A = "a",
+  S = "s",
+  D = "d",
+  ArrowUp = "arrowup",
+  ArrowDown = "arrowdown",
+  ArrowLeft = "arrowleft",
+  ArrowRight = "arrowright",
+  Space = " ",
   P = "p",
   R = "r",
-  S = "s",
+  C = "c",
 }
 /* eslint-enable no-shadow */

@@ -11,46 +11,6 @@ import { IAppState } from "./interface";
 
 const pieceFactory: PieceFactory = new PieceFactory();
 
-export const updateMatrix = (matrix: Tile[], position: number, tile: Tile) => {
-  matrix[position] = tile;
-  return matrix;
-};
-
-export const loopThroughPiecePosition = (
-  state: IAppState,
-  callback: Function
-) => {
-  if (state.current) {
-    state.current.positionOnGrid.forEach((position) => {
-      callback(position);
-    });
-  }
-};
-
-export const clearPiece = (state: IAppState) => {
-  let newMatrix = [...state.matrix];
-  state.current = state.current ? state.current.clearStore() : state.current;
-  loopThroughPiecePosition(state, (position: number) => {
-    newMatrix = updateMatrix(newMatrix, position, new EmptyTile());
-  });
-  return newMatrix;
-};
-
-export const drawPiece = (state: IAppState) => {
-  let newMatrix = [...state.matrix];
-  state.current = state.current ? state.current.clearStore() : state.current;
-  loopThroughPiecePosition(state, (position: number) => {
-    const { isSolid } = state.matrix[position];
-    const color = state.current?.color;
-    newMatrix = updateMatrix(
-      newMatrix,
-      position,
-      new FilledTile(isSolid, color)
-    );
-  });
-  return newMatrix;
-};
-
 export const update = (state: IAppState) => {
   if (state.locked) {
     return;
@@ -99,6 +59,51 @@ export const update = (state: IAppState) => {
 
   state.matrix = drawPiece(state);
   state.locked = false;
+};
+
+export const stopGameInterval = (state: IAppState) => {
+  if (state.gameInterval) {
+    clearInterval(state.gameInterval);
+  }
+};
+export const updateMatrix = (matrix: Tile[], position: number, tile: Tile) => {
+  matrix[position] = tile;
+  return matrix;
+};
+
+export const loopThroughPiecePosition = (
+  state: IAppState,
+  callback: Function
+) => {
+  if (state.current) {
+    state.current.positionOnGrid.forEach((position) => {
+      callback(position);
+    });
+  }
+};
+
+export const clearPiece = (state: IAppState) => {
+  let newMatrix = [...state.matrix];
+  state.current = state.current ? state.current.clearStore() : state.current;
+  loopThroughPiecePosition(state, (position: number) => {
+    newMatrix = updateMatrix(newMatrix, position, new EmptyTile());
+  });
+  return newMatrix;
+};
+
+export const drawPiece = (state: IAppState) => {
+  let newMatrix = [...state.matrix];
+  state.current = state.current ? state.current.clearStore() : state.current;
+  loopThroughPiecePosition(state, (position: number) => {
+    const { isSolid } = state.matrix[position];
+    const color = state.current?.color;
+    newMatrix = updateMatrix(
+      newMatrix,
+      position,
+      new FilledTile(isSolid, color)
+    );
+  });
+  return newMatrix;
 };
 
 export const isCollidesBottom = (state: IAppState) => {
@@ -176,11 +181,6 @@ export const setPointsAndSpeed = (
     clearedLines: newLines,
     speed: newSpeed,
   };
-
-  //   if (newSpeed !== speed) {
-  //     this._unsubscribe();
-  //     this.auto(MatrixUtil.getSpeedDelay(newSpeed));
-  //   }
 };
 
 export const isGameOver = (state: IAppState) => {

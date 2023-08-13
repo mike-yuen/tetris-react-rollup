@@ -49,9 +49,24 @@ const appSlice = createSlice({
       state.locked = false;
     },
 
-    auto(state: IAppState, action: PayloadAction<{ delay: number }>) {
-      const { delay } = action.payload;
+    auto(state: IAppState) {
       update(state);
+    },
+
+    resume(state: IAppState) {
+      if (state.gameState !== GameState.Paused) {
+        return;
+      }
+      state.locked = false;
+      state.gameState = GameState.Started;
+    },
+
+    pause(state: IAppState) {
+      if (state.gameState !== GameState.Started) {
+        return;
+      }
+      state.locked = true;
+      state.gameState = GameState.Paused;
     },
 
     moveLeft(state: IAppState) {
@@ -117,6 +132,15 @@ const appSlice = createSlice({
   },
 });
 
-export const { start, auto, moveLeft, moveRight, moveDown, rotate, drop } =
-  appSlice.actions;
+export const {
+  start,
+  auto,
+  resume,
+  pause,
+  moveLeft,
+  moveRight,
+  moveDown,
+  rotate,
+  drop,
+} = appSlice.actions;
 export default appSlice.reducer;
