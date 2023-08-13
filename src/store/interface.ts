@@ -7,6 +7,8 @@ export interface IAppState {
   matrix: Tile[];
   current: Piece | null | undefined;
   next: Piece;
+  hold: Piece;
+  canHold: boolean;
   points: number;
   locked: boolean;
   sound: boolean;

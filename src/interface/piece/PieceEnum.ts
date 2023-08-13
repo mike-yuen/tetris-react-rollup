@@ -8,6 +8,7 @@ export enum PieceRotation {
 
 export enum PieceTypes {
   Dot = "Dot",
+  None = "None",
   O = "O",
   I = "I",
   T = "T",

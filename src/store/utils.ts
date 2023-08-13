@@ -39,6 +39,7 @@ export const update = (state: IAppState) => {
     state.matrix = matrix;
     state.current = state.next;
     state.next = pieceFactory.getRandomPiece();
+    state.canHold = true;
     if (isGameOver(state)) {
       onGameOver();
       state.matrix = MatrixUtils.getStartBoard();
@@ -61,11 +62,6 @@ export const update = (state: IAppState) => {
   state.locked = false;
 };
 
-export const stopGameInterval = (state: IAppState) => {
-  if (state.gameInterval) {
-    clearInterval(state.gameInterval);
-  }
-};
 export const updateMatrix = (matrix: Tile[], position: number, tile: Tile) => {
   matrix[position] = tile;
   return matrix;

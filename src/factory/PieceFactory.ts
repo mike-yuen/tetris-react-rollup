@@ -2,6 +2,7 @@ import { Piece } from "@/interface/piece/Piece";
 import { PieceI } from "@/interface/piece/types/I";
 import { PieceJ } from "@/interface/piece/types/J";
 import { PieceL } from "@/interface/piece/types/L";
+import { NonePiece } from "@/interface/piece/types/None";
 import { PieceO } from "@/interface/piece/types/O";
 import { PieceS } from "@/interface/piece/types/S";
 import { PieceT } from "@/interface/piece/types/T";
@@ -30,6 +31,10 @@ export class PieceFactory {
     }
     const nextPiece = this.currentBag.pop()!;
     return new nextPiece(x, y);
+  }
+
+  getNonePiece(x = SPAWN_POSITION_X, y = SPAWN_POSITION_Y): Piece {
+    return new NonePiece(x, y);
   }
 
   generateNewBag() {

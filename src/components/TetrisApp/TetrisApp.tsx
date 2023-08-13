@@ -11,6 +11,7 @@ import * as soundService from "@/services/sound.services";
 import {
   auto,
   drop,
+  holdPiece,
   moveDown,
   moveLeft,
   moveRight,
@@ -30,9 +31,8 @@ let tickInterval: NodeJS.Timer | null = null;
 
 const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
   const dispatch = useDispatch();
-  const { current, initSpeed, next, points, gameState, speed } = useSelector(
-    (state: RootState) => state.app
-  );
+  const { current, initSpeed, next, hold, points, gameState, speed } =
+    useSelector((state: RootState) => state.app);
 
   const handleKeyDown = (event: KeyboardEvent) => {
     const { key } = event;
@@ -58,6 +58,9 @@ const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
         break;
       case TetrisKeyboard.P:
         handlePause();
+        break;
+      case TetrisKeyboard.C:
+        handleHold();
         break;
       default:
         break;
@@ -129,6 +132,11 @@ const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
     }
   };
 
+  const handleHold = () => {
+    soundService.move();
+    dispatch(holdPiece());
+  };
+
   const onMouseDown = (key: string) => {
     const event = { key } as KeyboardEvent;
     handleKeyDown(event);
@@ -149,7 +157,7 @@ const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
         <div className="tr-app__react">
           <div className="tr-app__view">
             <div className="tr-app__next-hold">
-              <NextHold next={next} hold={next} theme={theme} />
+              <NextHold next={next} hold={hold} theme={theme} />
             </div>
             <div className="tr-app__score">
               <Score score={points} theme={theme} />

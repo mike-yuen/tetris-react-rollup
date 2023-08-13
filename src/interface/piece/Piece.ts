@@ -56,6 +56,12 @@ export class Piece {
     return this._newPiece();
   }
 
+  reset(): Piece {
+    this.rotation = PieceRotation.Deg0;
+    this.shape = this._shapes[this.rotation];
+    return this._newPiece();
+  }
+
   moveDown(step = 1): Piece {
     this.y = this.y + step;
     return this._newPiece();
@@ -69,6 +75,10 @@ export class Piece {
   moveLeft(): Piece {
     this.x--;
     return this._newPiece();
+  }
+
+  isNone(): boolean {
+    return this.type === PieceTypes.None;
   }
 
   get positionOnGrid(): number[] {

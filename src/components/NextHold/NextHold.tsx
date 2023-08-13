@@ -34,7 +34,8 @@ const PreviewPiece: FC<PreviewPieceProps> = ({ piece, color, theme }) => {
 };
 
 const NextHold: FC<NextHoldProps> = ({ next, hold, theme }) => {
-  const { next: nextPiece, color } = next;
+  const { next: nextPiece, color: nextColor } = next;
+  const { next: holdPiece, color: holdColor } = hold;
   return (
     <div className={`tr-next-hold tr-next-hold--${theme}`}>
       <div className="tr-next-hold__heading">
@@ -43,10 +44,10 @@ const NextHold: FC<NextHoldProps> = ({ next, hold, theme }) => {
       </div>
       <div className="tr-next-hold__pieces">
         <div className="tr-next-hold__next">
-          <PreviewPiece piece={nextPiece} color={color} theme={theme} />
+          <PreviewPiece piece={nextPiece} color={nextColor} theme={theme} />
         </div>
         <div className="tr-next-hold__hold">
-          <PreviewPiece piece={nextPiece} color={color} theme={theme} />
+          <PreviewPiece piece={holdPiece} color={holdColor} theme={theme} />
         </div>
       </div>
     </div>

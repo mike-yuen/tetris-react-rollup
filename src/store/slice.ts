@@ -1,7 +1,11 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { GameState } from "@/interface/GameState";
-import { PieceFactory } from "@/factory/PieceFactory";
+import {
+  PieceFactory,
+  SPAWN_POSITION_X,
+  SPAWN_POSITION_Y,
+} from "@/factory/PieceFactory";
 import { MatrixUtils } from "@/utils/MatrixUtils";
 
 import { IAppState } from "./interface";
@@ -18,6 +22,8 @@ const appState = (pieceFactory: PieceFactory): IAppState => ({
   matrix: MatrixUtils.getStartBoard(),
   current: null,
   next: pieceFactory.getRandomPiece(),
+  hold: pieceFactory.getNonePiece(),
+  canHold: true,
   points: 0,
   locked: true,
   sound: true,
@@ -128,6 +134,24 @@ const appSlice = createSlice({
       }
       state.current = state.current?.revert();
       state.matrix = drawPiece(state);
+      state.canHold = true;
+    },
+
+    holdPiece(state: IAppState) {
+      if (state.locked || !state.canHold) {
+        return;
+      }
+      state.matrix = clearPiece(state);
+      const isHoldNonePiece = state.hold.isNone();
+      const newCurrent = isHoldNonePiece ? state.next : state.hold;
+      if (isHoldNonePiece) {
+        state.next = pieceFactory.getRandomPiece();
+      }
+      if (state.current) state.hold = state.current.reset();
+      state.current = newCurrent;
+      state.hold.x = SPAWN_POSITION_X;
+      state.hold.y = SPAWN_POSITION_Y;
+      state.canHold = false;
     },
   },
 });
@@ -142,5 +166,6 @@ export const {
   moveDown,
   rotate,
   drop,
+  holdPiece,
 } = appSlice.actions;
 export default appSlice.reducer;
