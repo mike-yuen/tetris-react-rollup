@@ -74,6 +74,7 @@ const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
       return;
     }
     soundService.start();
+    if (tickInterval) clearInterval(tickInterval);
     tickInterval = setInterval(() => {
       dispatch(auto());
     }, MatrixUtils.getSpeedDelay(initSpeed));
@@ -120,14 +121,12 @@ const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
     soundService.move();
     if (gameState !== GameState.Started) {
       dispatch(resume());
+      if (tickInterval) clearInterval(tickInterval);
       tickInterval = setInterval(() => {
         dispatch(auto());
       }, MatrixUtils.getSpeedDelay(speed));
     } else {
-      if (tickInterval) {
-        clearInterval(tickInterval);
-        // tickInterval = null;
-      }
+      if (tickInterval) clearInterval(tickInterval);
       dispatch(pause());
     }
   };
@@ -150,6 +149,20 @@ const Tetris: FC<TetrisAppProps> = ({ theme = "light" }) => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleKeyDown]);
+
+  useEffect(() => {
+    if (gameState === GameState.Over && tickInterval)
+      clearInterval(tickInterval);
+  }, [gameState]);
+
+  useEffect(() => {
+    if (gameState === GameState.Started) {
+      if (tickInterval) clearInterval(tickInterval);
+      tickInterval = setInterval(() => {
+        dispatch(auto());
+      }, MatrixUtils.getSpeedDelay(speed));
+    }
+  }, [speed]);
 
   return (
     <Provider store={store}>

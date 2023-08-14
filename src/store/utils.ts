@@ -45,6 +45,8 @@ export const update = (state: IAppState) => {
       state.matrix = MatrixUtils.getStartBoard();
       state.current = null;
       state.next = pieceFactory.getRandomPiece();
+      state.hold = pieceFactory.getNonePiece();
+      state.canHold = true;
       state.points = 0;
       state.locked = true;
       state.sound = true;
